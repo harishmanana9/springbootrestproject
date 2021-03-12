@@ -1,14 +1,13 @@
 package com.spring.userdao;
 
-import java.util.List;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 
 import com.spring.model.User;
 
-public interface UserDao {
-	public void createUser(User user);
-	public boolean updateUser(int userId, User user);
-	public boolean deleteUser(int userId);
+@Repository
+public interface UserDao extends JpaRepository<User, Integer> {
+//public interface UserDao extends CrudRepository<User, Integer> {
 	
-	public User findUserById(int userId);
-	public List<User> findAll();
 }

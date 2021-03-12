@@ -1,6 +1,8 @@
 package com.spring.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,28 +17,37 @@ public class UserServiceImpl implements UserService{
 	UserDao userDao;
 	
 	@Override
-	public void createUser(User user) {
-		userDao.createUser(user);
+	public void createUser(User user) {		
+		userDao.save(user);
 	}
 
 	@Override
 	public boolean updateUser(int userId, User user) {
-		return userDao.updateUser(userId, user);
+		User userObj = userDao.save(user);
+		if(userObj == null) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
-	public boolean deleteUser(int userId) {
-		return userDao.deleteUser(userId);
+	public boolean deleteUser(Integer userId) {
+		User userObj = new User();
+		userObj.setUserId(userId);
+		userDao.delete(userObj);
+		return true;
 	}
 
 	@Override
-	public User findUserById(int userId) {
-		return userDao.findUserById(userId);
+	public Optional<User> findUserById(int userId) {
+		return userDao.findById(userId);
 	}
 
 	@Override
 	public List<User> findAll() {
-		return userDao.findAll();
+		Iterable<User> iterableUser = userDao.findAll();
+		List<User> listUser = new ArrayList<User>();
+		iterableUser.forEach(listUser::add);
+		return listUser;
 	}
-
 }

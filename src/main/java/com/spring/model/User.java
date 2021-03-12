@@ -1,25 +1,33 @@
 package com.spring.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
 public class User {
-	private int userId;
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	private Integer userId;
 	private String userName;
 	private String city;
 	
 	public User() {
 	}
 
-	public User(int userId, String userName, String city) {
+	public User(String userName, String city) {
 		super();
-		this.userId = userId;
 		this.userName = userName;
 		this.city = city;
 	}
 
-	public int getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
-	public void setUserId(int userId) {
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
 
